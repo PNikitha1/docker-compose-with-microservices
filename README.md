@@ -300,7 +300,7 @@ Update axios bases in slices to use `import.meta.env.VITE_API_GATEWAY`.
 Backend ports (dev examples):
 - Gateway: **8086**
 - Eureka: **8761**
-- Users: **8087** (if direct), but access via Gateway path `/usermicroservice/**`
+- Users: **8085** (if direct), but access via Gateway path `/usermicroservice/**`
 - Notices/Rooms/Tenants/Tickets: choose distinct ports per service; access via Gateway.
 
 ---
@@ -340,7 +340,7 @@ Backend ports (dev examples):
 MIT (or your preferred license). Add `LICENSE` file if required.
 
 ## 👤 Author
-Built by Veerapaneni Uma Parvathi and team.
+Built by Pallapothula Nikitha.
 
 ---
 
