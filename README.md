@@ -39,30 +39,44 @@ A production-ready PG (Paying Guest) management system built with **Spring Boot 
 
 ```
 pg-portal/
-  api-gateway/
-  eureka-server/
-  usermicroservice/
-  noticessmicroservice/
-  roomsmicroservice/
-  tenantsmicroservice/
-  ticketssmicroservice/
+  backend/
+    api-gateway/
+    eureka-server/
+    usermicroservice/
+    noticessmicroservice/
+    roomsmicroservice/
+    tenantsmicroservice/
+    ticketssmicroservice/
   frontend/
     src/
-      features/
-        user/
+      store/
+        auth/
+          authSlice.js
         rooms/
+          roomSlice.js
         tenants/
+          tenantSlice.js
         notices/
+          noticeSlice.js
         tickets/
+          ticketSlice.js
+        store.js
       components/
         dashboard/
+          Dashboard.jsx
         rooms/
+          Rooms.jsx
         tenants/
+          Tenants.jsx
         notices/
+          Notices.jsx
         tickets/
+          TicketRaise.jsx
         auth/
-      routes/RequireAuth.jsx
-      store/store.js
+          RequireAuth.jsx
+          Login.jsx
+          Register.jsx
+      
 ```
 
 ---
@@ -70,7 +84,7 @@ pg-portal/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Java 17+**
+- **Java 21+**
 - **Node.js 18+** and **npm/yarn**
 - Optional: Docker (if containerizing)
 
@@ -195,12 +209,12 @@ npm start
 
 ## 🧩 Frontend Slices & Key Files
 
-- `features/user/userSlice.js` — login, register, logout, token-only storage.
-- `features/notices/noticeSlice.js` — list/create/update with fallback mock if backend empty/unavailable.
-- `features/rooms/roomSlice.js` — list/create/update/allocate/delete with server-side search and fallback mock.
-- `features/tickets/ticketSlice.js` — list/create/status-patch/delete.
-- `features/tenants/tenantSlice.js` — list/create/update/delete/export CSV; generates `tenantId` if not provided.
-- `routes/RequireAuth.jsx` — wraps protected routes.
+- `store/auth/authSlice.js` — login, register, logout, token-only storage.
+- `store/notices/noticeSlice.js` — list/create/update with fallback mock if backend empty/unavailable.
+- `store/rooms/roomSlice.js` — list/create/update/allocate/delete with server-side search and fallback mock.
+- `store/tickets/ticketSlice.js` — list/create/status-patch/delete.
+- `store/tenants/tenantSlice.js` — list/create/update/delete/export CSV; generates `tenantId` if not provided.
+- `components/auth/RequireAuth.jsx` — wraps protected routes.
 - `components/dashboard/Dashboard.jsx` — dynamic header (Login/Register vs Logout) with guarded links.
 
 ---
