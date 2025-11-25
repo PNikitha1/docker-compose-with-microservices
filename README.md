@@ -40,7 +40,7 @@ Gateway**, and a **React (Vite) Frontend**, fully containerized using
 
 -   Docker
 -   Docker Compose
--   Java 17+
+-   Java 21+
 -   Node.js
 
 ## Running the Entire System Using Docker Compose
