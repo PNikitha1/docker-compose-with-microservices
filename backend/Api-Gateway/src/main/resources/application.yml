@@ -1,0 +1,102 @@
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # --- Users Service ---
+        - id: users-service
+          uri: lb://usermicroservice
+          predicates:
+            - Path=/usermicroservice/**
+          filters:
+            - StripPrefix=1
+
+        # --- Notices Service ---
+        - id: notices-service
+          uri: lb://noticessmicroservice
+          predicates:
+            - Path=/noticessmicroservice/**
+          filters:
+            - StripPrefix=1
+
+        # --- Rooms Service ---
+        - id: rooms-service
+          uri: lb://roomsmicroservice
+          predicates:
+            - Path=/roomsmicroservice/**
+          filters:
+            - StripPrefix=1
+
+        # --- Tenants Service ---
+        - id: tenants-service
+          uri: lb://tenantsmicroservice
+          predicates:
+            - Path=/tenantsmicroservice/**
+          filters:
+            - StripPrefix=1
+
+        # --- Tickets Service ---
+        - id: tickets-service
+          uri: lb://ticketssmicroservice
+          predicates:
+            - Path=/ticketssmicroservice/**
+          filters:
+            - StripPrefix=1
+
+      # Disable auto route discovery (since you have explicit routes above)
+      discovery:
+        locator:
+          enabled: false
+          # lowerCaseServiceId: true
+
+      # --- Global CORS (Gateway is the single CORS point) ---
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:5173"
+              - "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 3600
+
+      # --- HTTP client timeouts ---
+      httpclient:
+        connect-timeout: 5000       # milliseconds
+        response-timeout: 10000ms   # duration format accepted by Spring (ms, s)
+
+server:
+  port: 8086
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+  instance:
+    prefer-ip-address: true
+  
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
+    org.springframework.web.reactive.function.client: DEBUG

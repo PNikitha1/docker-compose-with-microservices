@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+
+  eureka-server:
+    build: ./backend/Eureka
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - backend
+
+  api-gateway:
+    build: ./backend/Api-Gateway
+    container_name: api-gateway
+    ports:
+      - "8086:8086"
+    depends_on:
+      - eureka-server
+    networks:
+      - backend
+
+  usermicroservice:
+    build: ./backend/Usermicroservice
+    container_name: usermicroservice
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+    networks:
+      - backend
+
+  tenantsmicroservice:
+    build: ./backend/Tenantsmicroservice
+    container_name: tenantsmicroservice
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-server
+    networks:
+      - backend
+
+  ticketsmicroservice:
+    build: ./backend/Ticketssmicroservice
+    container_name: ticketsmicroservice
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eureka-server
+    networks:
+      - backend
+
+  roomsmicroservice:
+    build: ./backend/Roomsmicroservice
+    container_name: roomsmicroservice
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server
+    networks:
+      - backend
+  
+  noticesmicroservice:
+    build: ./backend/Noticessmicroservice
+    container_name: noticesmicroservice
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+    networks:
+      - backend
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-gateway
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
